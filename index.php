@@ -17,9 +17,9 @@
       <div class="col">        
         <h1>Cadastro de Questões</h1>
         <div class="resp"></div>
-        <form name="formulario">
+        <form name="formulario" method="post">
           <div class="form-group">
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite o enunciado da questão">
+            <input type="text"name="questao" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite o enunciado da questão">
           </div>
 
           <div class="form-group">
@@ -152,7 +152,15 @@
       let formulario = $('form[name=formulario]');        
       $('button[type=submit]').click(function(evento){          
         let array = formulario.serializeArray();
-        let nomeDisciplina = $('#nomeDisciplina').val();
+
+        let nomeQuestao = $('input[name=questao]').val();
+        let idBanca = $('select[name=banca] option:selected').val();
+        let idInstituicao = $('select[name=instituicao] option:selected').val();
+        let idModalidade = $('select[name=modalidade] option:selected').val();
+        let idAreaDeAtuacao = $('select[name=area-de-atuacao] option:selected').val();        
+        let idDisciplina = $('select[name=disciplina] option:selected').val();
+        let idAssunto = $('select[name=assunto] option:selected').val();
+
         /*PASSANDO OS DADOS ARMAZENADOS PARA UM ARRAY JSON*/
         let verifica = 1; 
         while(verifica <= array.lenght){
@@ -164,24 +172,23 @@
         }              
         let request =
         $.ajax({
-          url: "forms/cadastrardisciplina.php",
+          url: "forms/cadastrarquestao.php",
           method: "POST",
-          data: { banca : nomeBanca, instituicao : nomeInstituicao, modalidade : nomeModalidade, areaDeAtuacao : nomeAreaDeAtuacao, disciplina : nomeDisciplina, assunto : nomeAssunto },
+          data: { questao : nomeQuestao, banca : idBanca, instituicao : idInstituicao, modalidade : idModalidade, areaDeAtuacao : idAreaDeAtuacao, disciplina : idDisciplina, assunto : idAssunto },
           dataType: "json",
           beforeSend: function(){
             $('.resp').html('<div class="alert alert-warning" role="alert"><p>Aguarde enquanto enviamos seu cadastro.</p></div>');
           }
         })
-        .done(function( valor ) {
-          if(valor.erro == 'sim'){
-            $('.resp').html('<div class="alert alert-danger" role="alert"><p>'+valor.getErro+'</p></div>');
+        .done(function( retorno ) {
+          if(retorno.erro == 'sim'){
+            $('.resp').html('<div class="alert alert-danger" role="alert"><p>'+retorno.getErro+'</p></div>');
           }
           else{
-            $('.resp').html('<div class="alert alert-success" role="alert"><p>'+valor.mensagem+'</p></div>');
-            
+            $('.resp').html('<div class="alert alert-success" role="alert"><p>'+retorno.mensagem+'</p></div>');
             setTimeout(function () {
-              window.location.href = "disciplina.php";
-            }, 3000);			
+              window.location.href = "index.php";
+            }, 3000);
           }
         })              
         .fail(function( jqXHR, errorThrown  ) {
