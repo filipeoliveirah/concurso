@@ -98,6 +98,18 @@
         <form name="formularioAssunto" action="forms/buscarAssunto.php">
           <input type="hidden" id="idDisciplina" placeholder="">
         </form>
+
+        <form name="respostas" action="forms/cadastrarresposta.php" style="display:none">
+          <div class="row">
+            <div class="col">
+              <select name="valorResposta" class="form-control">              
+                <option value="1">Certo</option>
+                <option value="0">Errado</option>
+              </select>
+            </div>
+          </div>
+        </form>
+
       </div>
     </div>
     <!-- Optional JavaScript -->
@@ -106,6 +118,7 @@
     <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <!-- AJAX ASSUNTO DINÂMICO -->
     <script>
       let formularioAssunto = $('form[name=formularioAssunto]');
       let idDisciplinaSelecionada;
@@ -148,6 +161,7 @@
         evento.preventDefault();
       });
     </script>
+    <!-- AJAX QUESTAO -->
     <script>     
       let formulario = $('form[name=formulario]');        
       $('button[type=submit]').click(function(evento){          
@@ -186,6 +200,9 @@
           }
           else{
             $('.resp').html('<div class="alert alert-success" role="alert"><p>'+retorno.mensagem+'</p></div>');
+            $('form[name=respostas]').submit(function(eventoRespostas){
+              eventoRespostas.preventDefault();
+            });
             setTimeout(function () {
               window.location.href = "index.php";
             }, 3000);
@@ -196,6 +213,20 @@
         });             
         evento.preventDefault();
       });
+    </script>
+
+    <!-- AJAX RESPOSTA-->
+    <script>
+    $('select[name=modalidade]').change(function(){    
+      // RESPOSTA CERTO ERRADO  
+      if($('select[name=modalidade] option:selected').val() == 6){
+        $('form[name=respostas]').css('display','block');
+      }else{
+        // RESPOSTA MULTIPLA ESCOLHA
+        alert('Erro');
+      }
+    });
+
     </script>
   </body>
 </html>
