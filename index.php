@@ -13,17 +13,34 @@
   </head>
   <body>
     <?php include_once('header.php'); ?>
+    <div class="container">     
+      <div class="row"> 
+        <div class="col-md-9">       
+          <h1>Cadastro de Questões</h1>
+        </div>
+        <div class="col-md-3">
+          <?php
+            $qntQuestoes = $pdo->prepare("SELECT * FROM questao");
+            $qntQuestoes->execute();
+            if($mostrarQtdQuestoes = $qntQuestoes->fetch(PDO::FETCH_OBJ)){                                          
+          ?>
+          <div class="alert alert-secondary float-right">   
+            <span><?echo $mostrarQtdQuestoes->idQuestao; ?> Inserida(s)</span>
+          </div>
+          <?php } ?>  
+        </div>
+      </div>
+    </div>
     <div class="container">      
       <div class="col">        
-        <h1>Cadastro de Questões</h1>
         <div class="resp"></div>
         <form name="formulario" method="post">
           <div class="form-group">
-            <input type="text"name="questao" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite o enunciado da questão">
+            <textarea rows="4" cols="50" name="questao" class="form-control" placeholder="Digite o enunciado da questão"></textarea>
           </div>
 
           <div class="form-group">
-            <select name="banca" class="form-control" id="exampleFormControlSelect1">
+            <select name="banca" class="form-control">
               <option value="">Banca</option>
               <?php
                 $inserir_banco = $pdo->prepare("SELECT * FROM banca");
@@ -36,7 +53,7 @@
           </div>
 
           <div class="form-group">
-            <select name="instituicao" class="form-control" id="exampleFormControlSelect1">
+            <select name="instituicao" class="form-control">
               <option value="">Instituição</option>
               <?php
                 $inserir_banco = $pdo->prepare("SELECT * FROM instituicao");
@@ -49,7 +66,7 @@
           </div>
 
           <div class="form-group">
-            <select name="modalidade" class="form-control" id="exampleFormControlSelect1">
+            <select name="modalidade" class="form-control">
               <option value="">Modalidade</option>
               <?php
                 $inserir_banco = $pdo->prepare("SELECT * FROM modalidade");
@@ -62,7 +79,7 @@
           </div>
 
           <div class="form-group">
-            <select name="area-de-atuacao" class="form-control" id="exampleFormControlSelect1">
+            <select name="area-de-atuacao" class="form-control">
               <option value="">Área de Atuação</option>
               <?php
                 $inserir_banco = $pdo->prepare("SELECT * FROM areadeatuacao");
@@ -75,7 +92,7 @@
           </div>
 
           <div class="form-group">
-            <select name="disciplina" class="form-control" id="exampleFormControlSelect1">
+            <select name="disciplina" class="form-control">
               <option value="">Disciplina</option>
               <?php
                 $inserir_banco = $pdo->prepare("SELECT * FROM disciplina");
@@ -86,13 +103,6 @@
               <?php } ?>
             </select>
           </div>
-
-          <div class="form-group">
-            <select name="assunto" class="form-control" id="exampleFormControlSelect1" style="display:none">
-              <option value="0">Assunto</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-primary">Cadastrar</button>
         </form>
 
         <form name="formularioAssunto" action="forms/buscarAssunto.php">
@@ -100,16 +110,15 @@
         </form>
 
         <form name="respostas" action="forms/cadastrarresposta.php" style="display:none">
-          <div class="row">
-            <div class="col">
-              <select name="valorResposta" class="form-control">              
-                <option value="1">Certo</option>
-                <option value="0">Errado</option>
-              </select>
-            </div>
-          </div>
-        </form>
-
+          <select name="valorResposta" class="form-control">
+            <option value="">Escolha a resposta:</option>              
+            <option value="1">Certo</option>
+            <option value="2">Errado</option>
+          </select>
+        </form>      
+      </div>
+      <div class="col">
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
       </div>
     </div>
     <!-- Optional JavaScript -->
@@ -118,6 +127,7 @@
     <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
     <!-- AJAX ASSUNTO DINÂMICO -->
     <script>
       let formularioAssunto = $('form[name=formularioAssunto]');
@@ -202,6 +212,7 @@
             $('.resp').html('<div class="alert alert-success" role="alert"><p>'+retorno.mensagem+'</p></div>');
             $('form[name=respostas]').submit(function(eventoRespostas){
               eventoRespostas.preventDefault();
+              $('form[name=respostas]').submit();
             });
             setTimeout(function () {
               window.location.href = "index.php";
@@ -219,14 +230,13 @@
     <script>
     $('select[name=modalidade]').change(function(){    
       // RESPOSTA CERTO ERRADO  
-      if($('select[name=modalidade] option:selected').val() == 6){
-        $('form[name=respostas]').css('display','block');
+      if($('select[name=modalidade] option:selected').val() == 1){
+        $('form[name=respostas]').css('display','block');        
       }else{
         // RESPOSTA MULTIPLA ESCOLHA
-        alert('Erro');
+        alert('Modalidade inativa. Aguarde uma nova versão do sistema!');
       }
     });
-
     </script>
   </body>
 </html>

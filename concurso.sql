@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.15.5
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Sep 05, 2018 at 02:07 AM
--- Server version: 5.5.49-log
--- PHP Version: 7.0.6
+-- Host: localhost:3306
+-- Generation Time: Sep 29, 2018 at 11:14 PM
+-- Server version: 5.6.34-log
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -26,19 +28,10 @@ SET time_zone = "+00:00";
 -- Table structure for table `areadeatuacao`
 --
 
-CREATE TABLE IF NOT EXISTS `areadeatuacao` (
+CREATE TABLE `areadeatuacao` (
   `idAreaDeAtuacao` int(11) NOT NULL,
   `nomeAreaDeAtuacao` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `areadeatuacao`
---
-
-INSERT INTO `areadeatuacao` (`idAreaDeAtuacao`, `nomeAreaDeAtuacao`) VALUES
-(1, ''),
-(2, 'Controle de Gestão'),
-(3, 'Controle de Gestão');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -46,20 +39,11 @@ INSERT INTO `areadeatuacao` (`idAreaDeAtuacao`, `nomeAreaDeAtuacao`) VALUES
 -- Table structure for table `assunto`
 --
 
-CREATE TABLE IF NOT EXISTS `assunto` (
+CREATE TABLE `assunto` (
   `idAssunto` int(11) NOT NULL,
   `nomeAssunto` varchar(255) NOT NULL,
   `disciplina_idDisciplina` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `assunto`
---
-
-INSERT INTO `assunto` (`idAssunto`, `nomeAssunto`, `disciplina_idDisciplina`) VALUES
-(1, 'Lógica Matemática', 3),
-(4, 'dasdada', 2),
-(5, 'Álgebra', 3);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -67,39 +51,10 @@ INSERT INTO `assunto` (`idAssunto`, `nomeAssunto`, `disciplina_idDisciplina`) VA
 -- Table structure for table `banca`
 --
 
-CREATE TABLE IF NOT EXISTS `banca` (
+CREATE TABLE `banca` (
   `idBanca` int(11) NOT NULL,
   `nomeBanca` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `banca`
---
-
-INSERT INTO `banca` (`idBanca`, `nomeBanca`) VALUES
-(1, 'ACAFE'),
-(2, 'ACEPLAN'),
-(3, 'ACEF'),
-(4, 'dadas'),
-(5, '1'),
-(6, '2'),
-(7, '3'),
-(8, '4'),
-(9, '4'),
-(10, '5'),
-(11, '5'),
-(12, '5'),
-(13, '7'),
-(14, '8'),
-(15, '10'),
-(16, '11'),
-(17, '11'),
-(18, 'ACAFE'),
-(19, 'ACAFE'),
-(20, 'ACAPLAM'),
-(21, 'ACAPLAM'),
-(22, 'ACAPLAM'),
-(23, 'ACAFE');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -107,19 +62,10 @@ INSERT INTO `banca` (`idBanca`, `nomeBanca`) VALUES
 -- Table structure for table `disciplina`
 --
 
-CREATE TABLE IF NOT EXISTS `disciplina` (
+CREATE TABLE `disciplina` (
   `idDisciplina` int(11) NOT NULL,
   `nomeDisciplina` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `disciplina`
---
-
-INSERT INTO `disciplina` (`idDisciplina`, `nomeDisciplina`) VALUES
-(1, 'dadadasd'),
-(2, 'Português'),
-(3, 'Matemática');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -127,18 +73,10 @@ INSERT INTO `disciplina` (`idDisciplina`, `nomeDisciplina`) VALUES
 -- Table structure for table `instituicao`
 --
 
-CREATE TABLE IF NOT EXISTS `instituicao` (
+CREATE TABLE `instituicao` (
   `idInstituicao` int(11) NOT NULL,
   `nomeInstituicao` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `instituicao`
---
-
-INSERT INTO `instituicao` (`idInstituicao`, `nomeInstituicao`) VALUES
-(1, 'CÃ¢mara de Aracruz - ES'),
-(2, 'Câmara de Aracruz - ES');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -146,22 +84,10 @@ INSERT INTO `instituicao` (`idInstituicao`, `nomeInstituicao`) VALUES
 -- Table structure for table `modalidade`
 --
 
-CREATE TABLE IF NOT EXISTS `modalidade` (
+CREATE TABLE `modalidade` (
   `idModalidade` int(11) NOT NULL,
   `nomeModalidade` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `modalidade`
---
-
-INSERT INTO `modalidade` (`idModalidade`, `nomeModalidade`) VALUES
-(1, ''),
-(2, ''),
-(3, ''),
-(4, ''),
-(5, ''),
-(6, 'Múltipla Escolha');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -169,7 +95,7 @@ INSERT INTO `modalidade` (`idModalidade`, `nomeModalidade`) VALUES
 -- Table structure for table `questao`
 --
 
-CREATE TABLE IF NOT EXISTS `questao` (
+CREATE TABLE `questao` (
   `idQuestao` int(11) NOT NULL,
   `nomeQuestao` varchar(255) NOT NULL,
   `banca_idBanca` int(11) NOT NULL,
@@ -185,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `questao` (
 -- Table structure for table `respostaopcoes`
 --
 
-CREATE TABLE IF NOT EXISTS `respostaopcoes` (
+CREATE TABLE `respostaopcoes` (
   `idRespostaOpcoes` int(11) NOT NULL,
   `resposta` varchar(255) NOT NULL,
   `valor` tinyint(1) NOT NULL
@@ -197,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `respostaopcoes` (
 -- Table structure for table `resposta_has_questao`
 --
 
-CREATE TABLE IF NOT EXISTS `resposta_has_questao` (
+CREATE TABLE `resposta_has_questao` (
   `resposta_idRespostaOpcoes` int(11) NOT NULL,
   `questao_idQuestao` int(11) NOT NULL,
   `questao_banca_idBanca` int(11) NOT NULL,
@@ -281,32 +207,32 @@ ALTER TABLE `resposta_has_questao`
 -- AUTO_INCREMENT for table `areadeatuacao`
 --
 ALTER TABLE `areadeatuacao`
-  MODIFY `idAreaDeAtuacao` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `idAreaDeAtuacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `assunto`
 --
 ALTER TABLE `assunto`
-  MODIFY `idAssunto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `idAssunto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `banca`
 --
 ALTER TABLE `banca`
-  MODIFY `idBanca` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+  MODIFY `idBanca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `disciplina`
 --
 ALTER TABLE `disciplina`
-  MODIFY `idDisciplina` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `idDisciplina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `instituicao`
 --
 ALTER TABLE `instituicao`
-  MODIFY `idInstituicao` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `idInstituicao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `modalidade`
 --
 ALTER TABLE `modalidade`
-  MODIFY `idModalidade` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `idModalidade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `questao`
 --
@@ -341,8 +267,9 @@ ALTER TABLE `questao`
 -- Constraints for table `resposta_has_questao`
 --
 ALTER TABLE `resposta_has_questao`
-  ADD CONSTRAINT `fk_resposta_has_questao_questao1` FOREIGN KEY (`questao_idQuestao`, `questao_banca_idBanca`, `questao_areaDeAtuacao_idAreaDeAtuacao`, `questao_instituicao_idInstituicao`, `questao_disciplina_idDisciplina`, `questao_modalidade_idModalidade`) REFERENCES `questao` (`idQuestao`, `banca_idBanca`, `areaDeAtuacao_idAreaDeAtuacao`, `instituicao_idInstituicao`, `disciplina_idDisciplina`, `modalidade_idModalidade`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_resposta_has_questao_questao1` FOREIGN KEY (`questao_idQuestao`,`questao_banca_idBanca`,`questao_areaDeAtuacao_idAreaDeAtuacao`,`questao_instituicao_idInstituicao`,`questao_disciplina_idDisciplina`,`questao_modalidade_idModalidade`) REFERENCES `questao` (`idQuestao`, `banca_idBanca`, `areaDeAtuacao_idAreaDeAtuacao`, `instituicao_idInstituicao`, `disciplina_idDisciplina`, `modalidade_idModalidade`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_resposta_has_questao_resposta1` FOREIGN KEY (`resposta_idRespostaOpcoes`) REFERENCES `respostaopcoes` (`idRespostaOpcoes`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

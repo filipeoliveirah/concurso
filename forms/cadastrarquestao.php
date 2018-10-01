@@ -25,7 +25,7 @@ include_once('../conexao.php');
     }
     else{
         $respostas['erro'] = 'sim';
-        $respostas['getErro'] = $areaDeAtuacao;
+        $respostas['getErro'] = 'Não foi possível inserir a questão';
     }
     echo json_encode($respostas);
 
